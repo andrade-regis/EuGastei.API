@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="EuGastei.Application/EuGastei.Application.csproj" />
+  <Project Path="EuGastei.Domain/EuGastei.Domain.csproj" />
+  <Project Path="EuGastei.Infrastructure/EuGastei.Infrastructure.csproj" />
+  <Project Path="EuGastei.Presentation/EuGastei.Presentation.csproj" />
+</Solution>
