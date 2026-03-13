@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using EuGastei.Domain.Enums;
 
 namespace EuGastei.Domain.Entities
 {
@@ -15,8 +13,8 @@ namespace EuGastei.Domain.Entities
         //EF CORE
         public Tenant Tenant { get; private set; }
 
-        private Perfil() { }
 
+        private Perfil() { }
         public static Perfil Criar(Guid tenantId, string nome, string descricao)
         {
             return new Perfil()
@@ -29,17 +27,42 @@ namespace EuGastei.Domain.Entities
             };
         }
 
-        public void AtualizarTenantId(Guid tenantId) 
-            => this.TenantId = tenantId;
 
+        public void AtualizarTenantId(Guid tenantId)
+        {
+            ValidarTenantId(tenantId);
+
+            this.TenantId = tenantId;
+        }
         public void AtualizarNome(string nome)
-            => this.Nome = nome;
+        {
+            ValidarNome(nome);
 
+            this.Nome = nome;
+        }
         public void AtualizarDescricao(string descricao)
-            => this.Descricao = descricao;
+        {
+            ValidarDescricao(descricao);
 
+            this.Descricao = descricao;
+        }
         public void AtualizarAtivo(bool ativo)
             => this.Ativo = ativo;
 
+
+        private static void ValidarTenantId(Guid tenantId)
+        {
+            EntityValidator.ValidarId(tenantId, ETiposErro.TENANT_ID_INVALIDO);
+        }
+        private static void ValidarNome(string sigla)
+        {
+            if (string.IsNullOrEmpty(sigla))
+                throw new ArgumentException(ETiposErroExtensions.ToString(ETiposErro.PERMISSAO_SIGLA_É_OBRIGATORIO));
+        }
+        private static void ValidarDescricao(string descricao)
+        {
+            if (string.IsNullOrEmpty(descricao))
+                throw new ArgumentException(ETiposErroExtensions.ToString(ETiposErro.PERMISSAO_DESCRICAO_É_OBRIGATORIO));
+        }
     }
 }

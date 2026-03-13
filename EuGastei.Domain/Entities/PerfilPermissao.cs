@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using EuGastei.Domain.Enums;
 
 namespace EuGastei.Domain.Entities
 {
@@ -16,17 +14,35 @@ namespace EuGastei.Domain.Entities
         public virtual Perfil Perfil { get; private set; }
         public virtual Permissao Permissao { get; private set; }
 
-        private PerfilPermissao() { }
 
-        public static PerfilPermissao Criar(Guid tenantId, Guid perfilId, Guid PermissaoId)
+        private PerfilPermissao() { }
+        public static PerfilPermissao Criar(Guid tenantId, Guid perfilId, Guid permissaoId)
         {
+            ValidarTenantId(tenantId);
+            ValidarPerfilId(perfilId);
+            ValidarPermissaoId(permissaoId);
+
             return new PerfilPermissao
             {
                 Id = Guid.NewGuid(),
                 TenantId = tenantId,
                 PerfilId = perfilId,
-                PermissaoId = PermissaoId
+                PermissaoId = permissaoId
             };
+        }
+
+
+        private static void ValidarTenantId(Guid tenantId)
+        {
+            EntityValidator.ValidarId(tenantId, ETiposErro.TENANT_ID_INVALIDO);
+        }
+        private static void ValidarPerfilId(Guid perfilId)
+        {
+            EntityValidator.ValidarId(perfilId, ETiposErro.PERFIL_ID_INVALIDO);
+        }
+        private static void ValidarPermissaoId(Guid permissaoId)
+        {
+            EntityValidator.ValidarId(permissaoId, ETiposErro.PERMISSAO_ID_INVALIDO);
         }
     }
 }
