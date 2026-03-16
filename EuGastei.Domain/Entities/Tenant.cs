@@ -22,6 +22,18 @@ namespace EuGastei.Domain.Entities
                 Ativo = true
             };            
         }
+        public static Tenant Criar(Guid id, string nome)
+        {
+            ValidarId(id);
+            ValidarNome(nome);
+
+            return new Tenant
+            {
+                Id = id,
+                Nome = nome,
+                Ativo = true
+            };
+        }
 
 
         public void AtualizarNome(string nome)
@@ -38,6 +50,10 @@ namespace EuGastei.Domain.Entities
         {
             if (string.IsNullOrEmpty(nome))
                 throw new ArgumentException(ETiposErroExtensions.ToString(ETiposErro.TENANT_NOME_É_OBRIGATORIO));
-        }        
+        }
+        private static void ValidarId(Guid id)
+        {
+            EntityValidator.ValidarId(id, ETiposErro.TENANT_ID_INVALIDO);
+        }
     }
 }

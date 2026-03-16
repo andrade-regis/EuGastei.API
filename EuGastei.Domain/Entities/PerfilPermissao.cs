@@ -30,8 +30,27 @@ namespace EuGastei.Domain.Entities
                 PermissaoId = permissaoId
             };
         }
+        public static PerfilPermissao Criar(Guid id, Guid tenantId, Guid perfilId, Guid permissaoId)
+        {
+            ValidarId(id);
+            ValidarTenantId(tenantId);
+            ValidarPerfilId(perfilId);
+            ValidarPermissaoId(permissaoId);
+
+            return new PerfilPermissao
+            {
+                Id = Guid.NewGuid(),
+                TenantId = tenantId,
+                PerfilId = perfilId,
+                PermissaoId = permissaoId
+            };
+        }
 
 
+        private static void ValidarId(Guid id)
+        {
+            EntityValidator.ValidarId(id, ETiposErro.PERFIL_PERMISSAO_ID_INVALIDO);
+        }
         private static void ValidarTenantId(Guid tenantId)
         {
             EntityValidator.ValidarId(tenantId, ETiposErro.TENANT_ID_INVALIDO);

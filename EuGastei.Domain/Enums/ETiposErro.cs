@@ -11,6 +11,9 @@
         PERMISSAO_SIGLA_É_OBRIGATORIO,
         PERMISSAO_DESCRICAO_É_OBRIGATORIO,
 
+        PERFIL_PERMISSAO_ID_INVALIDO,
+        PERFIL_PERMISSAO_ASSOCIACAO_INVALIDO,
+
         PERFIL_ID_INVALIDO,
         PERFIL_NÃO_ENCONTRADO,
         PERFIL_NOME_É_OBRIGATORIO,
@@ -39,6 +42,9 @@
                 ETiposErro.PERMISSAO_SIGLA_É_OBRIGATORIO => "Obrigatório informar sigla da permissão",
                 ETiposErro.PERMISSAO_DESCRICAO_É_OBRIGATORIO => "Obrigatório informar descriçãa da permissão",
 
+                ETiposErro.PERFIL_PERMISSAO_ID_INVALIDO => "PerfilPermissaoId inválido",
+                ETiposErro.PERFIL_PERMISSAO_ASSOCIACAO_INVALIDO => "Permmissão já associada ao perfil informado",
+
                 ETiposErro.PERFIL_ID_INVALIDO => "PerfilId inválido",
                 ETiposErro.PERFIL_NÃO_ENCONTRADO => "Perfil não encontrado",
                 ETiposErro.PERFIL_NOME_É_OBRIGATORIO => "Obrigatório informar nome do perfil",
@@ -50,11 +56,6 @@
                 ETiposErro.USUARIO_APELIDO_É_OBRIGATORIO => "Obrigatório informar apelido do usuário",
                 ETiposErro.USUARIO_EMAIL_É_OBRIGATORIO => "Obrigatório informar email do usuário",
                 ETiposErro.USUARIO_SENHA_É_OBRIGATORIO => "Obrigatório informar senha do usuário",
-
-
-
-                
-
 
                 _ => erro.ToString()
             };

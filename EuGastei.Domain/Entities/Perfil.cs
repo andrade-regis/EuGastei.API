@@ -17,6 +17,26 @@ namespace EuGastei.Domain.Entities
         private Perfil() { }
         public static Perfil Criar(Guid tenantId, string nome, string descricao)
         {
+            ValidarTenantId(tenantId);
+            ValidarNome(nome);
+            ValidarDescricao(descricao);
+
+            return new Perfil()
+            {
+                Id = Guid.NewGuid(),
+                TenantId = tenantId,
+                Nome = nome,
+                Descricao = descricao,
+                Ativo = true
+            };
+        }
+        public static Perfil Criar(Guid id, Guid tenantId, string nome, string descricao)
+        {
+            ValidarId(id);
+            ValidarTenantId(tenantId);
+            ValidarNome(nome);
+            ValidarDescricao(descricao);
+
             return new Perfil()
             {
                 Id = Guid.NewGuid(),
@@ -50,6 +70,10 @@ namespace EuGastei.Domain.Entities
             => this.Ativo = ativo;
 
 
+        private static void ValidarId(Guid id)
+        {
+            EntityValidator.ValidarId(id, ETiposErro.PERFIL_ID_INVALIDO);
+        }
         private static void ValidarTenantId(Guid tenantId)
         {
             EntityValidator.ValidarId(tenantId, ETiposErro.TENANT_ID_INVALIDO);

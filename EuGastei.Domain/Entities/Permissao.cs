@@ -32,7 +32,23 @@ namespace EuGastei.Domain.Entities
                 Ativo = true
             };            
         }
+        public static Permissao Criar(Guid id, Guid tenantId, string sigla, string descricao)
+        {
+            ValidarId(id);
+            ValidarTenantId(tenantId);
 
+            ValidarSigla(sigla);
+            ValidarDescricao(sigla);
+
+            return new Permissao()
+            {
+                Id = id,
+                TenantId = tenantId,
+                Sigla = sigla,
+                Descricao = descricao,
+                Ativo = true
+            };
+        }
 
         public void AtualizarTenantId(Guid tenantId)
         {
@@ -56,6 +72,10 @@ namespace EuGastei.Domain.Entities
             => this.Ativo = ativo;
 
 
+        private static void ValidarId(Guid id)
+        {
+            EntityValidator.ValidarId(id, ETiposErro.PERMISSAO_ID_INVALIDO);
+        }
         private static void ValidarTenantId(Guid tenantId)
         {
             EntityValidator.ValidarId(tenantId, ETiposErro.TENANT_ID_INVALIDO);

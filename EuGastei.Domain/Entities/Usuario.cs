@@ -35,6 +35,34 @@ namespace EuGastei.Domain.Entities
 
             return new Usuario()
             {
+                Id = Guid.NewGuid(),
+                TenantId = tenantId,
+                PerfilId = perfilId,
+                Nome = nome,
+                Apelido = apelido,
+                Email = email,
+                Senha = senha
+            };
+        }
+        public static Usuario Criar(Guid id,
+                                    Guid tenantId,
+                                    Guid perfilId,
+                                    string nome,
+                                    string apelido,
+                                    string email,
+                                    string senha)
+        {
+            ValidarId(id);
+            ValidarTenantId(tenantId);
+            ValidarPerfilId(perfilId);
+            ValidarNome(nome);
+            ValidarApelido(apelido);
+            ValidarEmail(email);
+            ValidarSenha(senha);
+
+            return new Usuario()
+            {
+                Id = id,
                 TenantId = tenantId,
                 PerfilId = perfilId,
                 Nome = nome,
@@ -83,6 +111,10 @@ namespace EuGastei.Domain.Entities
         }
 
 
+        private static void ValidarId(Guid id)
+        {
+            EntityValidator.ValidarId(id, ETiposErro.USUARIO_ID_INVALIDO);
+        }
         private static void ValidarTenantId(Guid tenantId)
         {
             EntityValidator.ValidarId(tenantId, ETiposErro.TENANT_ID_INVALIDO);
