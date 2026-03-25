@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace EuGastei.Domain.Interfaces.Services
+namespace EuGastei.Application.DTOs.Usuario
 {
-    internal interface ITenantService
+    internal class UsuarioRespostaDTO
     {
     }
 }

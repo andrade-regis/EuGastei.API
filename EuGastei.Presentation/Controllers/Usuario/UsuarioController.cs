@@ -8,12 +8,8 @@ namespace EuGastei.Presentation.Controllers;
 [Route("api/[controller]")]
 public class UsuarioController : ControllerBase
 {
-    private readonly IUsuarioService _usuarioService;
-
-    public UsuarioController(IUsuarioService usuarioService)
-    {
-        _usuarioService = usuarioService;
-    }
+    //TODO: 2 - Implementar DTO from Body + Mapping(DTO -> Command) -> MediaR = AQUI
+    //TODO: 3 - Implementar Command -> Validation -> Handler = NA APLICATION
 
     [HttpGet]
     public async Task<IActionResult> GetAll()
