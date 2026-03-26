@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace EuGastei.Application.DTOs.Usuario
 {
-    internal class UsuarioRemoverDTO
+    public class UsuarioRemoverDTO
     {
+        [Required(ErrorMessage = "Obrigatório informar Id!")]
+        public Guid Id { get; set; }
     }
 }

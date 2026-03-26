@@ -1,4 +1,4 @@
-using EuGastei.Presentation.Extensions;
+using EuGastei.Presentation.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,7 +7,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-DependencyInjectionExtensions.Registrar(builder);
+builder.Services.RegistrarServices();
 
 var app = builder.Build();
 

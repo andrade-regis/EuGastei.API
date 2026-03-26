@@ -1,54 +1,52 @@
+using AutoMapper;
 using EuGastei.Application.DTOs.Usuario;
-using EuGastei.Application.Services;
+using EuGastei.Application.UseCases.Queries.Usuario;
+using EuGastei.Application.UseCases.Commands.Usuario;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EuGastei.Presentation.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[EndpointGroupName("usuario")]
 public class UsuarioController : ControllerBase
 {
-    //TODO: 2 - Implementar DTO from Body + Mapping(DTO -> Command) -> MediaR = AQUI
-    //TODO: 3 - Implementar Command -> Validation -> Handler = NA APLICATION
-
-    [HttpGet]
-    public async Task<IActionResult> GetAll()
+    private readonly IMapper _mapper; 
+    private readonly IMediator _mediator; 
+    
+    public UsuarioController(IMapper mapper,
+                             IMediator mediator)
     {
-        var usuarios = await _usuarioService.GetAllAsync();
-        return Ok(usuarios);
+        _mapper = mapper;
+        _mediator = mediator;
+    }
+    
+    [HttpGet("/consultar")]
+    public async Task<IActionResult> GetAll([FromBody] UsuarioConsultarDTO usuario)
+    {
+        var command = _mapper.Map<UsuarioConsultarQuery>(usuario);
+        return Ok(await _mediator.Send(command));
+    }
+    
+    [HttpPost("/adicionar")]
+    public async Task<IActionResult> Post([FromBody] UsuarioAdicionarDTO usuario)
+    {
+        var command = _mapper.Map<UsuarioAdicionarCommand>(usuario);
+        return Ok(await _mediator.Send(command));
     }
 
-    [HttpGet("{id}")]
-    public async Task<IActionResult> GetById(Guid id)
+    [HttpPut("/atualizar")]
+    public async Task<IActionResult> Put([FromBody] UsuarioAtualizarDTO usuario)
     {
-        var usuario = await _usuarioService.GetByIdAsync(id);
-        if (usuario == null)
-            return NotFound();
-
-        return Ok(usuario);
+        var command = _mapper.Map<UsuarioAtualizarCommand>(usuario);
+        return Ok(await _mediator.Send(command));
     }
 
-    [HttpPost]
-    public async Task<IActionResult> Post([FromBody] UsuarioDTO usuarioDTO)
+    [HttpDelete("/deletar")]
+    public async Task<IActionResult> Delete([FromBody] UsuarioRemoverDTO usuario)
     {
-        await _usuarioService.AddAsync(usuarioDTO);
-        return CreatedAtAction(nameof(GetById), new { id = usuarioDTO.Id }, usuarioDTO);
-    }
-
-    [HttpPut("{id}")]
-    public async Task<IActionResult> Put(Guid id, [FromBody] UsuarioDTO usuarioDTO)
-    {
-        if (id != usuarioDTO.Id)
-            return BadRequest();
-
-        await _usuarioService.UpdateAsync(usuarioDTO);
-        return NoContent();
-    }
-
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete(Guid id)
-    {
-        await _usuarioService.DeleteAsync(id);
-        return NoContent();
+        var command = _mapper.Map<UsuarioRemoverCommand>(usuario);
+        return Ok(await _mediator.Send(command));
     }
 }

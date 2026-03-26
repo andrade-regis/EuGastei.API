@@ -2,10 +2,9 @@
 
 namespace EuGastei.Application.DTOs.Usuario
 {
-    //TODO: 1 - TERMINAR DTOs
     public class UsuarioAtualizarDTO
     {
-        [Required(ErrorMessage = "Obrigatório informar ID!")]
+        [Required(ErrorMessage = "Obrigatório informar Id!")]
         public Guid Id { get; set; }
         public Guid? PerfilId { get; set; }
         public string? Nome { get; set; }
