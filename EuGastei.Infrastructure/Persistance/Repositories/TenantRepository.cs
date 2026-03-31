@@ -17,12 +17,12 @@ namespace EuGastei.Infrastructure.Persistance.Repositories
             DbSet = Db.Set<Tenant>();
         }
 
-        public async Task AdicionarAsync(Tenant tenant, CancellationToken cancellation = default)
+        public void Adicionar(Tenant tenant, CancellationToken cancellation = default)
         {
             DbSet.Add(tenant);
         }
 
-        public async Task AtualizarAsync(Tenant tenant, CancellationToken cancellation = default)
+        public void Atualizar(Tenant tenant, CancellationToken cancellation = default)
         {
             DbSet.Update(tenant);
         }
@@ -41,7 +41,7 @@ namespace EuGastei.Infrastructure.Persistance.Repositories
                               .FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task RemoverAsync(Tenant tenant, CancellationToken cancellation = default)
+        public void Remover(Tenant tenant, CancellationToken cancellation = default)
         {
             DbSet.Remove(tenant);
         }

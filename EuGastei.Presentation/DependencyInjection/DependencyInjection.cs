@@ -1,4 +1,7 @@
 ﻿using System.Reflection;
+using EuGastei.Application.Common.Behaviors;
+using MediatR;
+using FluentValidation;
 using EuGastei.Application.Mappings;
 using EuGastei.Domain.Interfaces.Repositories;
 using EuGastei.Infrastructure.Persistance.Repositories;
@@ -16,8 +19,17 @@ namespace EuGastei.Presentation.DependencyInjection
         
         private static void  RegistrarHandlers(IServiceCollection services)
         {
+            var assembly = Assembly.GetExecutingAssembly();
+
+            // MediatR
             services.AddMediatR(cfg => 
-                cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+                cfg.RegisterServicesFromAssembly(assembly));
+
+            // FluentValidation
+            services.AddValidatorsFromAssembly(assembly);
+
+            // Pipeline
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
         }
         
         private static void RegistrarMappers(IServiceCollection service)
