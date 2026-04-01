@@ -109,6 +109,10 @@ namespace EuGastei.Domain.Entities
 
             this.Senha = senha;
         }
+        public void AtualizarAtivo(bool ativo)
+        {
+            this.Ativo = ativo;
+        }
 
 
         private static void ValidarId(Guid id)

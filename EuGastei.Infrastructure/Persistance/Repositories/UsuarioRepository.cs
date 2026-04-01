@@ -36,8 +36,8 @@ namespace EuGastei.Infrastructure.Persistance.Repositories
 
         public async Task<Usuario> ObterPorIdAsync(Guid id, CancellationToken cancellation = default)
         {
-            return await DbSet.AsNoTracking()
-                .FirstOrDefaultAsync(x => x.Id == id);
+            return await DbSet
+                         .FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public void Remover(Usuario usuario, CancellationToken cancellation = default)

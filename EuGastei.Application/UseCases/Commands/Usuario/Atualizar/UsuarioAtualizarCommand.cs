@@ -1,3 +1,6 @@
+using EuGastei.Application.DTOs.Usuario;
+using MediatR;
+
 namespace EuGastei.Application.UseCases.Commands.Usuario.Atualizar;
 
 public record UsuarioAtualizarCommand(Guid Id, 
@@ -5,4 +8,4 @@ public record UsuarioAtualizarCommand(Guid Id,
                                       string? Nome,
                                       string? Apelido,
                                       string? Email,
-                                      string? Senha);
+                                      string? Senha) : IRequest<UsuarioRespostaDTO>;

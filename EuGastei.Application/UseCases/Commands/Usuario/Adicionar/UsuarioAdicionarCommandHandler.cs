@@ -1,10 +1,11 @@
 using AutoMapper;
+using EuGastei.Application.DTOs.Usuario;
 using EuGastei.Domain.Interfaces.Repositories;
 using MediatR;
 
 namespace EuGastei.Application.UseCases.Commands.Usuario.Adicionar;
 
-public class UsuarioAdicionarCommandHandler : IRequestHandler<UsuarioAdicionarCommand, Guid>
+public class UsuarioAdicionarCommandHandler : IRequestHandler<UsuarioAdicionarCommand, UsuarioRespostaDTO>
 {
     private readonly IMapper _mapper;
     private readonly IUsuarioRepository _usuarioRepository;
@@ -19,7 +20,7 @@ public class UsuarioAdicionarCommandHandler : IRequestHandler<UsuarioAdicionarCo
         _tenantRepository = tenantRepository;
     }
     
-    public async Task<Guid> Handle(UsuarioAdicionarCommand data, CancellationToken cancellationToken)
+    public async Task<UsuarioRespostaDTO> Handle(UsuarioAdicionarCommand data, CancellationToken cancellationToken)
     {
         var tenant = Domain.Entities.Tenant.Criar("Teste");
         
@@ -38,6 +39,6 @@ public class UsuarioAdicionarCommandHandler : IRequestHandler<UsuarioAdicionarCo
         
         await _usuarioRepository.SaveChangesAsync();
         
-        return usuario.Id;
+        return _mapper.Map<UsuarioRespostaDTO>(usuario);
     }
 }
