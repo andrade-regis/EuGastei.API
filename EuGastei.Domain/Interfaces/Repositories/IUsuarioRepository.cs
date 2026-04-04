@@ -9,8 +9,7 @@ namespace EuGastei.Domain.Interfaces.Repositories
         void Adicionar(Usuario usuario, CancellationToken cancellation = default);
         void Atualizar(Usuario usuario, CancellationToken cancellation = default);
         void Remover(Usuario usuario, CancellationToken cancellation = default);
-        Task<ICollection<Usuario>> ListarAsync(Expression<Func<Usuario, bool>>? condicao = null,
-                                                     CancellationToken cancellation = default);
+        public IQueryable<Usuario> ListarByQueryable(CancellationToken cancellation = default);
         public Task SaveChangesAsync();
     }
 }

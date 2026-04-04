@@ -27,11 +27,9 @@ namespace EuGastei.Infrastructure.Persistance.Repositories
             DbSet.Update(usuario);
         }
 
-        public async Task<ICollection<Usuario>> ListarAsync(Expression<Func<Usuario, bool>>? condicao = null, CancellationToken cancellation = default)
+        public IQueryable<Usuario> ListarByQueryable(CancellationToken cancellation = default)
         {
-            return await DbSet.AsNoTracking()
-                .Where(condicao)
-                .ToListAsync();
+            return DbSet.AsNoTracking();
         }
 
         public async Task<Usuario> ObterPorIdAsync(Guid id, CancellationToken cancellation = default)

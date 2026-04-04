@@ -1,8 +1,6 @@
 using AutoMapper;
 using EuGastei.Application.DTOs.Usuario;
-using EuGastei.Application.UseCases.Commands.Usuario.Adicionar;
-using EuGastei.Application.UseCases.Commands.Usuario.Remover;
-using EuGastei.Application.UseCases.Commands.Usuario.Atualizar;
+using EuGastei.Application.UseCases.Commands.Usuario;
 using EuGastei.Application.UseCases.Queries.Usuario.Consultar;
 using EuGastei.Domain.Entities;
 

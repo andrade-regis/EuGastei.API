@@ -1,4 +1,5 @@
-﻿using EuGastei.Domain.Enums;
+﻿using System.Runtime.InteropServices.Marshalling;
+using EuGastei.Domain.Enums;
 
 namespace EuGastei.Domain.Entities
 {
@@ -109,9 +110,13 @@ namespace EuGastei.Domain.Entities
 
             this.Senha = senha;
         }
-        public void AtualizarAtivo(bool ativo)
+        public void Desativar()
         {
-            this.Ativo = ativo;
+            Ativo = false;
+        }
+        public void Reativar()
+        {
+            Ativo = true;
         }
 
 

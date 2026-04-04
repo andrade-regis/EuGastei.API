@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace EuGastei.Application.UseCases.Commands.Usuario.Adicionar;
+namespace EuGastei.Application.UseCases.Commands.Usuario.Validators;
 
 public class UsuarioAdicionarCommandValidator :  AbstractValidator<UsuarioAdicionarCommand>
 {
@@ -14,6 +14,7 @@ public class UsuarioAdicionarCommandValidator :  AbstractValidator<UsuarioAdicio
         RuleFor(x => x.Email)
             .NotEmpty()
             .NotNull()
+            .EmailAddress()
             .WithMessage("E-mail é obrigatório");
         
         RuleFor(x => x.Senha)

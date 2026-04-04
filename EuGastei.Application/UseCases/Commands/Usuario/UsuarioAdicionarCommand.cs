@@ -1,7 +1,7 @@
 using EuGastei.Application.DTOs.Usuario;
 using MediatR;
 
-namespace EuGastei.Application.UseCases.Commands.Usuario.Adicionar;
+namespace EuGastei.Application.UseCases.Commands.Usuario;
 
 public record UsuarioAdicionarCommand (string? Nome, 
                                        string? Apelido, 

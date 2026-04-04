@@ -1,7 +1,7 @@
 using EuGastei.Application.DTOs.Usuario;
 using MediatR;
 
-namespace EuGastei.Application.UseCases.Commands.Usuario.Atualizar;
+namespace EuGastei.Application.UseCases.Commands.Usuario;
 
 public record UsuarioAtualizarCommand(Guid Id, 
                                       Guid? PerfilId,
