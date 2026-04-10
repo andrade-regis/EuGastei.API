@@ -1,9 +1,8 @@
+using System.Linq.Expressions;
 using EuGastei.Domain.Entities;
 using EuGastei.Domain.Interfaces.Repositories;
-using EuGastei.Infrastructure.Persistance.Configurations;
 using EuGastei.Infrastructure.Persistance.Context;
 using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
 
 namespace EuGastei.Infrastructure.Persistance.Repositories
 {

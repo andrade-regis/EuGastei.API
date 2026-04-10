@@ -1,12 +1,12 @@
-using System.Linq;
 using AutoMapper;
 using EuGastei.Application.DTOs.Usuario;
 using EuGastei.Domain.Interfaces.Repositories;
+using EuGastei.Domain.QueryObject;
 using MediatR;
 
 namespace EuGastei.Application.UseCases.Queries.Usuario.Consultar.Handler;
 
-public class UsuarioConsultarQueryHandler : IRequestHandler<UsuarioConsultarQuery, ICollection<UsuarioRespostaDTO>>
+public class UsuarioConsultarQueryHandler : IRequestHandler<UsuarioConsultarQuery, IEnumerable<UsuarioRespostaDTO>>
 {
     private readonly IUsuarioRepository _usuarioRepository;
     private readonly IMapper _mapper;
@@ -18,37 +18,11 @@ public class UsuarioConsultarQueryHandler : IRequestHandler<UsuarioConsultarQuer
         _mapper = mapper;
     }
     
-    public async Task<ICollection<UsuarioRespostaDTO>> Handle(UsuarioConsultarQuery request, 
+    public async Task<IEnumerable<UsuarioRespostaDTO>> Handle(UsuarioConsultarQuery request, 
                                                        CancellationToken cancellationToken)
     {
-        var consultarUsuarios = _usuarioRepository.ListarByQueryable();
+        var usuarioFiltro = _mapper.Map<UsuarioFiltro>(request);
         
-        if (request.Id.HasValue)
-        {
-            consultarUsuarios = consultarUsuarios.Where(x => x.Id == request.Id.Value);
-
-            var result = await consultarUsuarios.ToListAsync();
-            
-            return _mapper.Map<ICollection<UsuarioRespostaDTO>>(result); 
-        }
-
-        if (request.PerfilId.HasValue)
-            consultarUsuarios = consultarUsuarios.Where(x => x.PerfilId == request.PerfilId);
-        
-        if(request.Nome is not null)
-            consultarUsuarios = consultarUsuarios.Where(x => x.Nome == request.Nome);
-
-        if (request.Apelido is not null)
-            consultarUsuarios = consultarUsuarios.Where(x => x.Apelido == request.Apelido);
-
-        if (request.Email is not null)
-            consultarUsuarios = consultarUsuarios.Where(x => x.Email == request.Email);
-
-        if (request.Ativo is not null)
-            consultarUsuarios = consultarUsuarios.Where(x => x.Ativo == request.Ativo);
-
-        var result = await consultarUsuarios.ToListAsync();
-        
-        return _mapper.Map<ICollection<UsuarioRespostaDTO>>(result);
+        return _mapper.Map<ICollection<UsuarioRespostaDTO>>(_usuarioRepository.ListarPorFiltro(usuarioFiltro));
     }
 }

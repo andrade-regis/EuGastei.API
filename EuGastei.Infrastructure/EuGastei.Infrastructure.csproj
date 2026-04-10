@@ -11,17 +11,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.3" />
-    <PackageReference Include="MySql.EntityFrameworkCore" Version="10.0.1" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\EuGastei.Domain\EuGastei.Domain.csproj" />
     <ProjectReference Include="..\EuGastei.Application\EuGastei.Application.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="16.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.5" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="9.0.0" />
   </ItemGroup>
 
 </Project>

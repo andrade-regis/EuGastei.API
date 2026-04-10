@@ -3,6 +3,7 @@ using EuGastei.Application.DTOs.Usuario;
 using EuGastei.Application.UseCases.Commands.Usuario;
 using EuGastei.Application.UseCases.Queries.Usuario.Consultar;
 using EuGastei.Domain.Entities;
+using EuGastei.Domain.QueryObject;
 
 namespace EuGastei.Application.Mappings;
 
@@ -15,5 +16,6 @@ public class UsuarioMapping : Profile
         CreateMap<UsuarioAtualizarDTO, UsuarioAtualizarCommand>().ReverseMap();
         CreateMap<UsuarioRemoverDTO, UsuarioRemoverCommand>().ReverseMap();
         CreateMap<UsuarioConsultarDTO, UsuarioConsultarQuery>().ReverseMap();
+        CreateMap<UsuarioFiltro, UsuarioConsultarQuery>().ReverseMap();
     }
 }
