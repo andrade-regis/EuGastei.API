@@ -11,17 +11,13 @@ namespace EuGastei.Domain.Entities
         public string Descricao { get; private set; }
         public bool Ativo { get; private set; }
 
-        //EF CORE
-        public Tenant Tenant { get; private set; }
-
 
         private Permissao() { }
         public static Permissao Criar(Guid tenantId, string sigla, string descricao)
         {
             ValidarTenantId(tenantId);
-
             ValidarSigla(sigla);
-            ValidarDescricao(sigla);
+            ValidarDescricao(descricao);
 
             return new Permissao()
             {
@@ -38,7 +34,7 @@ namespace EuGastei.Domain.Entities
             ValidarTenantId(tenantId);
 
             ValidarSigla(sigla);
-            ValidarDescricao(sigla);
+            ValidarDescricao(descricao);
 
             return new Permissao()
             {
@@ -53,9 +49,9 @@ namespace EuGastei.Domain.Entities
         public void AtualizarTenantId(Guid tenantId)
         {
             ValidarTenantId(tenantId);
-
             this.TenantId = tenantId;
         }
+
         public void AtualizarSigla(string sigla)
         {
             ValidarSigla(sigla);
@@ -64,7 +60,7 @@ namespace EuGastei.Domain.Entities
         }
         public void AtualizarDescricao(string descricao)
         {
-            ValidarDescricao(Descricao);
+            ValidarDescricao(descricao);
 
             this.Descricao = descricao;
         }

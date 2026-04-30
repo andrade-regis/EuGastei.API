@@ -7,4 +7,4 @@ public record UsuarioConsultarQuery(Guid? PerfilId,
                                     string? Nome,
                                     string? Apelido,
                                     string? Email,
-                                    bool? Ativo) : IRequest<IEnumerable<UsuarioRespostaDTO>>;
+                                    bool? Ativo) : IRequest<IEnumerable<UsuarioRespostaResponse>>;

@@ -10,7 +10,6 @@ namespace EuGastei.Domain.Entities
         public Guid PermissaoId { get; private set; }
 
         // EF Core
-        public virtual Tenant Tenant { get; private set; }
         public virtual Perfil Perfil { get; private set; }
         public virtual Permissao Permissao { get; private set; }
 
@@ -39,11 +38,24 @@ namespace EuGastei.Domain.Entities
 
             return new PerfilPermissao
             {
-                Id = Guid.NewGuid(),
+                Id = id,
                 TenantId = tenantId,
                 PerfilId = perfilId,
                 PermissaoId = permissaoId
             };
+        }
+
+
+        public void AtualizarPerfilId(Guid perfilId)
+        {
+            ValidarPerfilId(perfilId);
+            PerfilId = perfilId;
+        }
+
+        public void AtualizarPermissaoId(Guid permissaoId)
+        {
+            ValidarPermissaoId(permissaoId);
+            PermissaoId = permissaoId;
         }
 
 

@@ -13,7 +13,6 @@ namespace EuGastei.Infrastructure.Persistance.Configurations
             builder.HasKey(u => u.Id);
             builder.Property(u => u.Id).ValueGeneratedNever();
 
-            builder.Property(u => u.TenantId).IsRequired();
             builder.Property(u => u.PerfilId).IsRequired();
 
             builder.Property(u => u.Nome)
@@ -33,11 +32,6 @@ namespace EuGastei.Infrastructure.Persistance.Configurations
 
             builder.Property(u => u.Ativo)
                 .IsRequired();
-
-            builder.HasOne(u => u.Tenant)
-                .WithMany()
-                .HasForeignKey(u => u.TenantId)
-                .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(u => u.Perfil)
                 .WithMany()

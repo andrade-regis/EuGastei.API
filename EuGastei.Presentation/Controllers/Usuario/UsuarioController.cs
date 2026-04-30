@@ -24,28 +24,28 @@ public class UsuarioController : ControllerBase
     }
     
     [HttpGet("/consultar")]
-    public async Task<IActionResult> GetAll([FromBody] UsuarioConsultarDTO usuario)
+    public async Task<IActionResult> GetAll([FromBody] UsuarioConsultarRequest usuario)
     {
         var command = _mapper.Map<UsuarioConsultarQuery>(usuario);
         return Ok(await _mediator.Send(command));
     }
     
     [HttpPost("/adicionar")]
-    public async Task<IActionResult> Post([FromBody] UsuarioAdicionarDTO usuario)
+    public async Task<IActionResult> Post([FromBody] UsuarioAdicionarRequest usuario)
     {
         var command = _mapper.Map<UsuarioAdicionarCommand>(usuario);
         return Ok(await _mediator.Send(command));
     }
 
     [HttpPut("/atualizar")]
-    public async Task<IActionResult> Put([FromBody] UsuarioAtualizarDTO usuario)
+    public async Task<IActionResult> Put([FromBody] UsuarioAtualizarRequest usuario)
     {
         var command = _mapper.Map<UsuarioAtualizarCommand>(usuario);
         return Ok(await _mediator.Send(command));
     }
 
     [HttpDelete("/deletar")]
-    public async Task<IActionResult> Delete([FromBody] UsuarioRemoverDTO usuario)
+    public async Task<IActionResult> Delete([FromBody] UsuarioRemoverRequest usuario)
     {
         var command = _mapper.Map<UsuarioRemoverCommand>(usuario);
         return Ok(await _mediator.Send(command));

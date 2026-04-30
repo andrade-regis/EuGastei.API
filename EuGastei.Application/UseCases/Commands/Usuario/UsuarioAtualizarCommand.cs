@@ -8,4 +8,4 @@ public record UsuarioAtualizarCommand(Guid Id,
                                       string? Nome,
                                       string? Apelido,
                                       string? Email,
-                                      string? Senha) : IRequest<UsuarioRespostaDTO>;
+                                      string? Senha) : IRequest<UsuarioRespostaResponse>;

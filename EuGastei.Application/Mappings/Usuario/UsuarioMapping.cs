@@ -11,11 +11,11 @@ public class UsuarioMapping : Profile
 {
     public UsuarioMapping()
     {
-        CreateMap<Usuario, UsuarioRespostaDTO>().ReverseMap();
-        CreateMap<UsuarioAdicionarDTO, UsuarioAdicionarCommand>().ReverseMap();
-        CreateMap<UsuarioAtualizarDTO, UsuarioAtualizarCommand>().ReverseMap();
-        CreateMap<UsuarioRemoverDTO, UsuarioRemoverCommand>().ReverseMap();
-        CreateMap<UsuarioConsultarDTO, UsuarioConsultarQuery>().ReverseMap();
+        CreateMap<Usuario, UsuarioRespostaResponse>().ReverseMap();
+        CreateMap<UsuarioAdicionarRequest, UsuarioAdicionarCommand>().ReverseMap();
+        CreateMap<UsuarioAtualizarRequest, UsuarioAtualizarCommand>().ReverseMap();
+        CreateMap<UsuarioRemoverRequest, UsuarioRemoverCommand>().ReverseMap();
+        CreateMap<UsuarioConsultarRequest, UsuarioConsultarQuery>().ReverseMap();
         CreateMap<UsuarioFiltro, UsuarioConsultarQuery>().ReverseMap();
     }
 }

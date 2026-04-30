@@ -10,9 +10,6 @@ namespace EuGastei.Domain.Entities
         public string Descricao { get; private set; }
         public bool Ativo { get; private set; }
 
-        //EF CORE
-        public Tenant Tenant { get; private set; }
-
 
         private Perfil() { }
         public static Perfil Criar(Guid tenantId, string nome, string descricao)
@@ -39,7 +36,7 @@ namespace EuGastei.Domain.Entities
 
             return new Perfil()
             {
-                Id = Guid.NewGuid(),
+                Id = id,
                 TenantId = tenantId,
                 Nome = nome,
                 Descricao = descricao,
@@ -51,9 +48,9 @@ namespace EuGastei.Domain.Entities
         public void AtualizarTenantId(Guid tenantId)
         {
             ValidarTenantId(tenantId);
-
             this.TenantId = tenantId;
         }
+
         public void AtualizarNome(string nome)
         {
             ValidarNome(nome);
@@ -78,15 +75,15 @@ namespace EuGastei.Domain.Entities
         {
             EntityValidator.ValidarId(tenantId, ETiposErro.TENANT_ID_INVALIDO);
         }
-        private static void ValidarNome(string sigla)
+        private static void ValidarNome(string nome)
         {
-            if (string.IsNullOrEmpty(sigla))
-                throw new ArgumentException(ETiposErroExtensions.ToString(ETiposErro.PERMISSAO_SIGLA_É_OBRIGATORIO));
+            if (string.IsNullOrEmpty(nome))
+                throw new ArgumentException(ETiposErroExtensions.ToString(ETiposErro.PERFIL_NOME_É_OBRIGATORIO));
         }
         private static void ValidarDescricao(string descricao)
         {
             if (string.IsNullOrEmpty(descricao))
-                throw new ArgumentException(ETiposErroExtensions.ToString(ETiposErro.PERMISSAO_DESCRICAO_É_OBRIGATORIO));
+                throw new ArgumentException(ETiposErroExtensions.ToString(ETiposErro.PERFIL_DESCRICAO_É_OBRIGATORIO));
         }
     }
 }

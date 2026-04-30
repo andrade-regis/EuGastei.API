@@ -19,25 +19,32 @@ namespace EuGastei.Infrastructure.Persistance.Repositories
             DbSet = Db.Set<Usuario>();
         }
 
-        public void Adicionar(Usuario usuario, CancellationToken cancellation = default)
+        public async Task AdicionarAsync(Usuario usuario, CancellationToken cancellation = default)
         {
             DbSet.Add(usuario);
         }
 
-        public void Atualizar(Usuario usuario, CancellationToken cancellation = default)
+        public async Task AtualizarAsync(Usuario usuario, CancellationToken cancellation = default)
         {
             DbSet.Update(usuario);
         }
 
         public async Task<Usuario> ObterPorIdAsync(Guid id, CancellationToken cancellation = default)
         {
-            return await DbSet
+            return await DbSet.AsNoTracking()
                          .FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public void Remover(Usuario usuario, CancellationToken cancellation = default)
+        public async Task RemoverAsync(Usuario usuario, CancellationToken cancellation = default)
         {
             DbSet.Remove(usuario);
+        }
+
+        public async Task<ICollection<Usuario>> ListarAsync(Expression<Func<Usuario, bool>>? condicao = null, CancellationToken cancellation = default)
+        {
+            var query = DbSet.AsNoTracking();
+            if (condicao != null) query = query.Where(condicao);
+            return await query.ToListAsync();
         }
 
         public async Task<IEnumerable<Usuario>> ListarPorFiltro(UsuarioFiltro filtro)

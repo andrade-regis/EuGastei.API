@@ -39,7 +39,21 @@ namespace EuGastei.Presentation.DependencyInjection
         
         private static void RegistrarRepositories(IServiceCollection service)
         {
+            service.AddScoped<ITenantRepository, TenantRepository>();
+            service.AddScoped<IAnoRepository, AnoRepository>();
+            service.AddScoped<IMesRepository, MesRepository>();
+            service.AddScoped<IFormaDePagamentoRepository, FormaDePagamentoRepository>();
+            service.AddScoped<ITipoDeTransacaoRepository, TipoDeTransacaoRepository>();
+            service.AddScoped<IContaRepository, ContaRepository>();
+            service.AddScoped<ICategoriaRepository, CategoriaRepository>();
+            service.AddScoped<IContaAnoMesSaldoRepository, ContaAnoMesSaldoRepository>();
+            service.AddScoped<ITransacaoRecorrenteRepository, TransacaoRecorrenteRepository>();
+            service.AddScoped<ITransacaoRepository, TransacaoRepository>();
+            
             service.AddScoped<IUsuarioRepository, UsuarioRepository>();
+            service.AddScoped<IPerfilRepository, PerfilRepository>();
+            service.AddScoped<IPermissaoRepository, PermissaoRepository>();
+            service.AddScoped<IPerfilPermissaoRepository, PerfilPermissaoRepository>();
         }
     }
 }

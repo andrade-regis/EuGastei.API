@@ -8,7 +8,6 @@ namespace EuGastei.Infrastructure.Persistance.Context
     {
         public EuGasteiDbContext(DbContextOptions<EuGasteiDbContext> options) : base(options) { }
 
-        public DbSet<Tenant> Tenants { get; set; }
         public DbSet<Perfil> Perfils { get; set; }
         public DbSet<Permissao> Permissoes { get; set; }
         public DbSet<PerfilPermissao> PerfisPermissoes { get; set; }
@@ -29,7 +28,6 @@ namespace EuGastei.Infrastructure.Persistance.Context
         {
             modelBuilder.ApplyConfiguration(new PerfilConfiguration());
             modelBuilder.ApplyConfiguration(new PermissaoConfiguration());
-            modelBuilder.ApplyConfiguration(new TenantConfiguration());
             modelBuilder.ApplyConfiguration(new UsuarioConfiguration());
             modelBuilder.ApplyConfiguration(new PerfilPermissaoConfiguration());
         }

@@ -8,8 +8,6 @@ namespace EuGastei.Application.Extensions
         {
             return erro switch
             {
-                ETiposErro.TENANT_NOME_É_OBRIGATORIO => "Obrigatório informar nome do Tenant",
-                ETiposErro.TENANT_NÃO_ENCONTRADO => "Tenant não encontrado",
                 _ => erro.ToString()
             };
         }

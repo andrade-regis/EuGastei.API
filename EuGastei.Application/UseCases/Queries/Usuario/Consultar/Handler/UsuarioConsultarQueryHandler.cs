@@ -6,7 +6,7 @@ using MediatR;
 
 namespace EuGastei.Application.UseCases.Queries.Usuario.Consultar.Handler;
 
-public class UsuarioConsultarQueryHandler : IRequestHandler<UsuarioConsultarQuery, IEnumerable<UsuarioRespostaDTO>>
+public class UsuarioConsultarQueryHandler : IRequestHandler<UsuarioConsultarQuery, IEnumerable<UsuarioRespostaResponse>>
 {
     private readonly IUsuarioRepository _usuarioRepository;
     private readonly IMapper _mapper;
@@ -18,11 +18,11 @@ public class UsuarioConsultarQueryHandler : IRequestHandler<UsuarioConsultarQuer
         _mapper = mapper;
     }
     
-    public async Task<IEnumerable<UsuarioRespostaDTO>> Handle(UsuarioConsultarQuery request, 
+    public async Task<IEnumerable<UsuarioRespostaResponse>> Handle(UsuarioConsultarQuery request, 
                                                        CancellationToken cancellationToken)
     {
         var usuarioFiltro = _mapper.Map<UsuarioFiltro>(request);
         
-        return _mapper.Map<ICollection<UsuarioRespostaDTO>>(_usuarioRepository.ListarPorFiltro(usuarioFiltro));
+        return _mapper.Map<ICollection<UsuarioRespostaResponse>>(_usuarioRepository.ListarPorFiltro(usuarioFiltro));
     }
 }

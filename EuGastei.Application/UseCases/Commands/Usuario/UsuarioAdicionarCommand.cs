@@ -6,4 +6,4 @@ namespace EuGastei.Application.UseCases.Commands.Usuario;
 public record UsuarioAdicionarCommand (string? Nome, 
                                        string? Apelido, 
                                        string? Email,
-                                       string? Senha) : IRequest<UsuarioRespostaDTO>;
+                                       string? Senha) : IRequest<UsuarioRespostaResponse>;

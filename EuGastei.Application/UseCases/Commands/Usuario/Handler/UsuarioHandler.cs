@@ -6,8 +6,8 @@ using MediatR;
 
 namespace EuGastei.Application.UseCases.Commands.Usuario.Handler;
 
-public class UsuarioHandler : IRequestHandler<UsuarioAdicionarCommand, UsuarioRespostaDTO>,
-                              IRequestHandler<UsuarioAtualizarCommand, UsuarioRespostaDTO>,
+public class UsuarioHandler : IRequestHandler<UsuarioAdicionarCommand, UsuarioRespostaResponse>,
+                              IRequestHandler<UsuarioAtualizarCommand, UsuarioRespostaResponse>,
                               IRequestHandler<UsuarioRemoverCommand, bool>
 {
     private readonly IMapper _mapper;
@@ -23,29 +23,28 @@ public class UsuarioHandler : IRequestHandler<UsuarioAdicionarCommand, UsuarioRe
         _tenantRepository = tenantRepository;
     }
     
-    public async Task<UsuarioRespostaDTO> Handle(UsuarioAdicionarCommand data, 
+    public async Task<UsuarioRespostaResponse> Handle(UsuarioAdicionarCommand data, 
                                    CancellationToken cancellationToken)
     {
-        var tenant = Tenant.Criar("Teste");
-        _tenantRepository.Adicionar(tenant);
+        var tenant = Domain.Entities.Tenant.Criar("Dummy");
         
-        await _tenantRepository.SaveChangesAsync();
+        await _tenantRepository.AdicionarAsync(tenant);
         
-        var usuario = Domain.Entities.Usuario.Criar(tenant.Id, 
-                                                    tenant.Id,
+        var usuario = Domain.Entities.Usuario.Criar(tenant.Id, // TenantId dummy
+                                                    Guid.NewGuid(), // PerfilId dummy
                                                     data.Nome,
                                                     data.Apelido,
                                                     data.Email,
                                                     data.Senha);
         
-        _usuarioRepository.Adicionar(usuario);
+        await _usuarioRepository.AdicionarAsync(usuario);
         
         await _usuarioRepository.SaveChangesAsync();
         
-        return _mapper.Map<UsuarioRespostaDTO>(usuario);
+        return _mapper.Map<UsuarioRespostaResponse>(usuario);
     }
 
-    public async Task<UsuarioRespostaDTO> Handle(UsuarioAtualizarCommand request, 
+    public async Task<UsuarioRespostaResponse> Handle(UsuarioAtualizarCommand request, 
                                                  CancellationToken cancellationToken)
     {
         var usuario = await _usuarioRepository.ObterPorIdAsync(request.Id);
@@ -70,7 +69,7 @@ public class UsuarioHandler : IRequestHandler<UsuarioAdicionarCommand, UsuarioRe
             
         await _usuarioRepository.SaveChangesAsync();
         
-        return _mapper.Map<UsuarioRespostaDTO>(usuario);
+        return _mapper.Map<UsuarioRespostaResponse>(usuario);
     }
 
     public async Task<bool> Handle(UsuarioRemoverCommand request, 

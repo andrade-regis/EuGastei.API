@@ -1,4 +1,4 @@
-﻿using EuGastei.Domain.Enums;
+using EuGastei.Domain.Enums;
 
 namespace EuGastei.Domain.Entities
 {
@@ -7,10 +7,10 @@ namespace EuGastei.Domain.Entities
         public Guid Id { get; private set; }
         public string Nome { get; private set; }
         public bool Ativo { get; private set; }
-        public DateTime DataCriacao { get; private set; } = DateTime.UtcNow;
-
+        public DateTime DateCreated { get; private set; }
 
         private Tenant() { }
+
         public static Tenant Criar(string nome)
         {
             ValidarNome(nome);
@@ -19,10 +19,12 @@ namespace EuGastei.Domain.Entities
             {
                 Id = Guid.NewGuid(),
                 Nome = nome,
-                Ativo = true
-            };            
+                Ativo = true,
+                DateCreated = DateTime.UtcNow
+            };
         }
-        public static Tenant Criar(Guid id, string nome)
+
+        public static Tenant Criar(Guid id, string nome, bool ativo, DateTime dateCreated)
         {
             ValidarId(id);
             ValidarNome(nome);
@@ -31,29 +33,29 @@ namespace EuGastei.Domain.Entities
             {
                 Id = id,
                 Nome = nome,
-                Ativo = true
+                Ativo = ativo,
+                DateCreated = dateCreated
             };
         }
-
 
         public void AtualizarNome(string nome)
         {
             ValidarNome(nome);
-
-            this.Nome = nome;
+            Nome = nome;
         }
-        public void AtualizarAtivo(bool ativo)
-            => this.Ativo = ativo;
-        
+
+        public void Ativar() => Ativo = true;
+        public void Desativar() => Ativo = false;
+
+        private static void ValidarId(Guid id)
+        {
+            EntityValidator.ValidarId(id, ETiposErro.TENANT_ID_INVALIDO);
+        }
 
         private static void ValidarNome(string nome)
         {
             if (string.IsNullOrEmpty(nome))
                 throw new ArgumentException(ETiposErroExtensions.ToString(ETiposErro.TENANT_NOME_É_OBRIGATORIO));
-        }
-        private static void ValidarId(Guid id)
-        {
-            EntityValidator.ValidarId(id, ETiposErro.TENANT_ID_INVALIDO);
         }
     }
 }

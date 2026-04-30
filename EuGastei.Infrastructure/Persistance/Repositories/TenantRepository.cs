@@ -17,35 +17,29 @@ namespace EuGastei.Infrastructure.Persistance.Repositories
             DbSet = Db.Set<Tenant>();
         }
 
-        public void Adicionar(Tenant tenant, CancellationToken cancellation = default)
+        public async Task AdicionarAsync(Tenant tenant, CancellationToken cancellation = default)
         {
             DbSet.Add(tenant);
         }
-
-        public void Atualizar(Tenant tenant, CancellationToken cancellation = default)
+        public async Task AtualizarAsync(Tenant tenant, CancellationToken cancellation = default)
         {
             DbSet.Update(tenant);
         }
-
-        public async Task<ICollection<Tenant>> ListarAsync(Expression<Func<Tenant, bool>>? condicao = null,
-                                                           CancellationToken cancellation = default)
+        public async Task<ICollection<Tenant>> ListarAsync(Expression<Func<Tenant, bool>>? condicao = null, CancellationToken cancellation = default)
         {
-            return await DbSet.AsNoTracking()
-                              .Where(condicao)
-                              .ToListAsync();
+            var query = DbSet.AsNoTracking();
+            if (condicao != null) query = query.Where(condicao);
+            return await query.ToListAsync();
         }
-
         public async Task<Tenant> ObterPorIdAsync(Guid id, CancellationToken cancellation = default)
         {
             return await DbSet.AsNoTracking()
                               .FirstOrDefaultAsync(x => x.Id == id);
         }
-
-        public void Remover(Tenant tenant, CancellationToken cancellation = default)
+        public async Task RemoverAsync(Tenant tenant, CancellationToken cancellation = default)
         {
             DbSet.Remove(tenant);
         }
-
         public async Task SaveChangesAsync()
         {
             await Db.SaveChangesAsync();

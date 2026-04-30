@@ -15,7 +15,6 @@ namespace EuGastei.Domain.Entities
         public bool Ativo { get; private set; }
 
         //EF CORE
-        public Tenant Tenant { get; private set; }
         public Perfil Perfil { get; private set; }
 
 
@@ -42,7 +41,8 @@ namespace EuGastei.Domain.Entities
                 Nome = nome,
                 Apelido = apelido,
                 Email = email,
-                Senha = senha
+                Senha = senha,
+                Ativo = true
             };
         }
         public static Usuario Criar(Guid id,
@@ -69,7 +69,8 @@ namespace EuGastei.Domain.Entities
                 Nome = nome,
                 Apelido = apelido,
                 Email = email,
-                Senha = senha
+                Senha = senha,
+                Ativo = true
             };
         }
 
@@ -77,14 +78,14 @@ namespace EuGastei.Domain.Entities
         public void AtualizarTenantId(Guid tenantId)
         {
             ValidarTenantId(tenantId);
-
             this.TenantId = tenantId;
         }
+
         public void AtualizarPerfilId(Guid perfilId)
         {
             ValidarPerfilId(perfilId);
 
-            this.TenantId = perfilId;
+            this.PerfilId = perfilId;
         }
         public void AtualizarNome(string nome)
         {
