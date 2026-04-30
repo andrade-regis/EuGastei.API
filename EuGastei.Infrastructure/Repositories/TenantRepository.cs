@@ -1,6 +1,6 @@
 using EuGastei.Domain.Entities;
 using EuGastei.Domain.Interfaces.Repositories;
-using EuGastei.Infrastructure.Persistance.Context;
+using EuGastei.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 

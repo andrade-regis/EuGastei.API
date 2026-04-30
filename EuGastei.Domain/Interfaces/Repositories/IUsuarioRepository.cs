@@ -1,6 +1,5 @@
 ﻿using EuGastei.Domain.Entities;
 using System.Linq.Expressions;
-using EuGastei.Domain.QueryObject;
 
 namespace EuGastei.Domain.Interfaces.Repositories
 {
@@ -12,7 +11,6 @@ namespace EuGastei.Domain.Interfaces.Repositories
         Task RemoverAsync(Usuario usuario, CancellationToken cancellation = default);
         Task<ICollection<Usuario>> ListarAsync(Expression<Func<Usuario, bool>>? condicao = null,
                                                      CancellationToken cancellation = default);
-        Task<IEnumerable<Usuario>> ListarPorFiltro(UsuarioFiltro filtro);
         Task SaveChangesAsync();
     }
 }

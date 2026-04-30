@@ -17,4 +17,11 @@
 
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DTOs\Requests\" />
+    <Folder Include="DTOs\Responses\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="Services\" />
+  </ItemGroup>
+
 </Project>

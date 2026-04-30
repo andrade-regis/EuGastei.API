@@ -1,19 +1,28 @@
 ﻿using System.Reflection;
-using EuGastei.Application.Common.Behaviors;
-using MediatR;
-using FluentValidation;
-using EuGastei.Application.Mappings;
 using EuGastei.Domain.Interfaces.Repositories;
+using EuGastei.Infrastructure.Context;
 using EuGastei.Infrastructure.Persistance.Repositories;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace EuGastei.Presentation.DependencyInjection
+namespace EuGastei.Infrastructure.DependencyInjection
 {
     public static class DependencyInjection
     {
+        public static void RegisterDBContext(this IServiceCollection services,
+            IConfiguration configuration)
+        {
+            services.AddDbContext<EuGasteiDbContext>(options =>
+                options.UseMySql(
+                    configuration.GetConnectionString("DefaultConnection"),
+                    ServerVersion.AutoDetect(configuration.GetConnectionString("DefaultConnection"))
+                ));
+        }
+        
         public static void RegistrarServices(this IServiceCollection service)
         {
             RegistrarHandlers(service);
-            RegistrarMappers(service);
             RegistrarRepositories(service);
         }
         
@@ -24,17 +33,6 @@ namespace EuGastei.Presentation.DependencyInjection
             // MediatR
             services.AddMediatR(cfg => 
                 cfg.RegisterServicesFromAssembly(assembly));
-
-            // FluentValidation
-            services.AddValidatorsFromAssembly(assembly);
-
-            // Pipeline
-            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
-        }
-        
-        private static void RegistrarMappers(IServiceCollection service)
-        {
-            service.AddAutoMapper(cfg => cfg.AddProfile<UsuarioMapping>());
         }
         
         private static void RegistrarRepositories(IServiceCollection service)

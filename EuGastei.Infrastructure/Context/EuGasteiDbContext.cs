@@ -1,7 +1,7 @@
 ﻿using EuGastei.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace EuGastei.Infrastructure.Persistance.Context
+namespace EuGastei.Infrastructure.Context
 {
     public class EuGasteiDbContext : DbContext
     {
