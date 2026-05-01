@@ -1,4 +1,4 @@
-using EuGastei.Infrastructure.DependencyInjection;
+using EuGastei.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
